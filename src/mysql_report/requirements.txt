@@ -1,0 +1,5 @@
+pymysql
+configparser
+requests
+jinja2
+schedule 

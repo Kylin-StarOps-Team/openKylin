@@ -1,0 +1,9 @@
+[
+  {
+    "issue": "InnoDB缓冲池过小",
+    "severity": "high",
+    "current": "128MB",
+    "recommended": "8065MB",
+    "solution": "在my.cnf中增加innodb_buffer_pool_size"
+  }
+]

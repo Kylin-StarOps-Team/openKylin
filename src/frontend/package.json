@@ -1,0 +1,33 @@
+{
+  "name": "starops-desktop",
+  "version": "1.0.0",
+  "description": "StarOps AI系统监控助手 - Linux桌面版",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-setuid-sandbox",
+    "dev": "electron . --development --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-setuid-sandbox",
+    "build": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "StarOps Team",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "marked": "^9.1.6",
+    "highlight.js": "^11.9.0"
+  },
+  "build": {
+    "appId": "com.starops.desktop",
+    "productName": "StarOps",
+    "directories": {
+      "output": "dist"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Utility"
+    }
+  }
+}

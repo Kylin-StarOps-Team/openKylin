@@ -1,0 +1,10 @@
+{
+  "detection_number": 7,
+  "files": {
+    "optimization_report": "mysql_optimization_report_7.json",
+    "suggestions": "mysql_suggestions_7.json",
+    "html_report": "mysql_optimization_report_7.html",
+    "summary": "mysql_summary_7.txt",
+    "advisor": "variable_advisor_7.txt"
+  }
+}

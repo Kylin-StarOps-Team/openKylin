@@ -1,0 +1,93 @@
+{
+  "test_info": {
+    "phase": "baseline",
+    "timestamp": "2025-08-13T00:27:34.476073",
+    "queries_tested": 1
+  },
+  "protocol_responses": [
+    {
+      "query_id": 1,
+      "query": "MySQL数据库性能怎么样？",
+      "timestamp": "2025-08-13T00:28:17.095200",
+      "execution_time": 42.6189124584198,
+      "status": "success",
+      "response": {
+        "type": "mcp_analysis",
+        "protocol": "MysqldExporterProtocol",
+        "params": {
+          "metric_type": "performance"
+        },
+        "mcp_result": {
+          "status": "success",
+          "metric_type": "performance",
+          "timestamp": "2025-08-13T00:27:44.556525",
+          "summary": {
+            "metric_type": "performance",
+            "key_findings": [
+              "当前连接数: 1",
+              "活跃线程数: 2",
+              "慢查询数: 0"
+            ]
+          },
+          "anomaly_analysis": {
+            "severity_score": 0,
+            "severity_level": "正常",
+            "anomalies": [],
+            "total_anomalies": 0
+          },
+          "raw_data": {
+            "mysql_global_status_innodb_row_lock_time": [
+              {
+                "labels": {},
+                "value": 0.0
+              }
+            ],
+            "mysql_global_status_innodb_row_lock_time_avg": [
+              {
+                "labels": {},
+                "value": 0.0
+              }
+            ],
+            "mysql_global_status_innodb_row_lock_time_max": [
+              {
+                "labels": {},
+                "value": 0.0
+              }
+            ],
+            "mysql_global_status_innodb_row_lock_waits": [
+              {
+                "labels": {},
+                "value": 0.0
+              }
+            ],
+            "mysql_global_status_slow_queries": [
+              {
+                "labels": {},
+                "value": 0.0
+              }
+            ],
+            "mysql_global_status_threads_connected": [
+              {
+                "labels": {},
+                "value": 1.0
+              }
+            ],
+            "mysql_global_status_threads_running": [
+              {
+                "labels": {},
+                "value": 2.0
+              }
+            ]
+          }
+        },
+        "analysis": "根据提供的MySQL数据库监控数据，以下是专业分析结果：\n\n🔢 **异常等级**: Level 1 (完全正常)  \n📊 **评分依据**: \n  - 连接数(30%): 1/1=100%使用率 → 但绝对值极低(1连接) → 1分\n  - 查询性能(25%): 0慢查询 → 0分  \n  - 复制延迟(20%): 无复制数据 → 默认0分\n  - 锁等待(25%): 0锁等待 → 0分\n  - 综合评分: (1×0.3)+(0×0.25)+(0×0.2)+(0×0.25) = 0.3 → Level 1\n\n⚠️ **风险评估**:  \n• 当前数据库处于空闲状态，无性能压力  \n• 所有关键指标均在最优范围内  \n• 业务影响系数为0（无业务风险）\n\n🎯 **处理优先级**: 低（无需处理）\n\n---\n\n**详细分析报告**：\n\n1. **连接状态**  \n   - 当前连接数仅1个（通常为监控连接）  \n   - 活跃线程数2个属于正常后台进程  \n   - *建议*：保持当前连接池配置（如`max_connections=151`）\n\n2. **查询性能**  \n   - 慢查询数为0（`long_query_time`阈值内）  \n   - 行锁等待时间为0ms  \n   - *优化建议*：当前无需调整`innodb_lock_wait_timeout`等参数\n\n3. **资源利用率**  \n   - 无CPU/内存数据但线程数极低 → 推断资源充足  \n   - *检查项*：可补充`innodb_buffer_pool_usage`监控\n\n4. **安全状态**  \n   - 无异常连接模式（需结合审计日志确认）  \n   - *建议*：常规安全扫描即可\n\n**关键指标趋势**：  \n▁▁▁▁▁▁▁▁▁▁ (所有指标持续平稳)\n\n**优化机会**：  \n虽然当前状态健康，但可考虑：  \n1. 启用`performance_schema`进行深度监控  \n2. 建立基线指标以便未来对比  \n3. 设置连接数增长告警（如>50%阈值时预警）\n\n需要其他维度的分析可提供补充数据。"
+      }
+    }
+  ],
+  "summary": {
+    "total_queries": 1,
+    "successful_queries": 1,
+    "failed_queries": 0,
+    "success_rate": 100.0
+  }
+}

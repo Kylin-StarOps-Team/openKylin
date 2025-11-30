@@ -1,0 +1,8 @@
+Usage: pt-variable-advisor [OPTIONS] [DSN]
+
+Errors in command-line arguments:
+  * A DSN must be specified when --source-of-variables=mysql
+
+pt-variable-advisor analyzes variables and advises on possible problems.  For
+more details, please use the --help option, or try 'perldoc
+/usr/bin/pt-variable-advisor' for complete documentation.

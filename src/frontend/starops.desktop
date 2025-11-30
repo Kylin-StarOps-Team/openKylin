@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=StarOps AI助手
+Name[zh_CN]=StarOps AI系统监控助手
+Comment=AI-powered system monitoring assistant for Linux
+Comment[zh_CN]=Linux智能系统监控助手
+Exec=/home/denerate/MCPArchieve/frontend/start.sh
+Icon=/home/denerate/MCPArchieve/frontend/assets/icon.png
+Terminal=false
+StartupNotify=true
+Categories=Utility;System;Monitor;
+Keywords=monitoring;system;ai;starops;
+StartupWMClass=starops-desktop

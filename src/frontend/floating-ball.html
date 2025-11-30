@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarOps</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            cursor: move;
+            user-select: none;
+            -webkit-app-region: drag;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            overflow: hidden;
+            width: 80px;
+            height: 80px;
+        }
+        
+        html {
+            overflow: hidden;
+            width: 80px;
+            height: 80px;
+        }
+
+        .floating-ball {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s ease;
+            position: relative;
+            margin: 4px;
+            -webkit-app-region: no-drag;
+        }
+
+        .floating-ball:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            border-color: #4299e1;
+        }
+
+        .floating-ball:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .ball-icon {
+            width: 24px;
+            height: 24px;
+            color: #4299e1;
+            margin-bottom: 2px;
+        }
+
+        .ball-text {
+            color: #2d3748;
+            font-size: 8px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(66, 153, 225, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.5s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        .pulse {
+            animation: pulse 1s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 12px 32px rgba(66, 153, 225, 0.3);
+            }
+        }
+
+        /* 活跃状态指示器 */
+        .status-indicator {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background: #48bb78;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .floating-ball.active .status-indicator {
+            opacity: 1;
+        }
+
+        /* 呼吸灯效果 */
+        @keyframes breathe {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .floating-ball.breathing {
+            animation: breathe 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-ball" id="floatingBall">
+        <svg class="ball-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <div class="ball-text">StarOps</div>
+        <div class="status-indicator"></div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        const floatingBall = document.getElementById('floatingBall');
+        let clickTimeout = null;
+        let clickCount = 0;
+        let isProcessing = false;
+
+        // 双击检测
+        floatingBall.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (isProcessing) return;
+            
+            clickCount++;
+            
+            if (clickCount === 1) {
+                clickTimeout = setTimeout(() => {
+                    clickCount = 0;
+                }, 300);
+            } else if (clickCount === 2) {
+                clearTimeout(clickTimeout);
+                clickCount = 0;
+                handleDoubleClick(e);
+            }
+        });
+
+        function handleDoubleClick(e) {
+            // 防止重复点击
+            isProcessing = true;
+            
+            // 添加点击效果
+            createRipple(e);
+            
+            // 添加脉冲效果
+            floatingBall.classList.add('pulse');
+            floatingBall.classList.add('active');
+            
+            setTimeout(() => {
+                floatingBall.classList.remove('pulse');
+                isProcessing = false;
+            }, 1000);
+            
+            setTimeout(() => {
+                floatingBall.classList.remove('active');
+            }, 3000);
+            
+            // 通知主进程打开主窗口
+            ipcRenderer.invoke('open-main-window');
+        }
+
+        function createRipple(e) {
+            const ripple = document.createElement('span');
+            const rect = floatingBall.getBoundingClientRect();
+            const size = 16;
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            floatingBall.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 500);
+        }
+
+        // 防止右键菜单
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // 定期呼吸灯效果
+        function startBreathing() {
+            floatingBall.classList.add('breathing');
+            setTimeout(() => {
+                floatingBall.classList.remove('breathing');
+                // 随机间隔重新开始呼吸
+                setTimeout(startBreathing, Math.random() * 30000 + 30000); // 30-60秒
+            }, 6000); // 呼吸3次
+        }
+
+        // 启动后10秒开始呼吸灯
+        setTimeout(startBreathing, 10000);
+
+        console.log('StarOps悬浮球已加载');
+    </script>
+</body>
+</html>

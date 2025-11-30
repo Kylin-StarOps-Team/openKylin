@@ -1,0 +1,50 @@
+{
+  "test_info": {
+    "phase": "baseline",
+    "timestamp": "2025-08-13T00:21:28.936852",
+    "queries_tested": 5
+  },
+  "protocol_responses": [
+    {
+      "query_id": 1,
+      "query": "检查MySQL数据库连接数",
+      "timestamp": "2025-08-13T00:21:28.936948",
+      "status": "error",
+      "error": "'SmartMonitor' object has no attribute 'process_query'"
+    },
+    {
+      "query_id": 2,
+      "query": "分析MySQL数据库性能指标",
+      "timestamp": "2025-08-13T00:21:28.936996",
+      "status": "error",
+      "error": "'SmartMonitor' object has no attribute 'process_query'"
+    },
+    {
+      "query_id": 3,
+      "query": "查看MySQL慢查询统计",
+      "timestamp": "2025-08-13T00:21:28.937029",
+      "status": "error",
+      "error": "'SmartMonitor' object has no attribute 'process_query'"
+    },
+    {
+      "query_id": 4,
+      "query": "检查MySQL数据库当前状态",
+      "timestamp": "2025-08-13T00:21:28.937060",
+      "status": "error",
+      "error": "'SmartMonitor' object has no attribute 'process_query'"
+    },
+    {
+      "query_id": 5,
+      "query": "MySQL数据库性能怎么样？",
+      "timestamp": "2025-08-13T00:21:28.937091",
+      "status": "error",
+      "error": "'SmartMonitor' object has no attribute 'process_query'"
+    }
+  ],
+  "summary": {
+    "total_queries": 5,
+    "successful_queries": 0,
+    "failed_queries": 5,
+    "success_rate": 0.0
+  }
+}
