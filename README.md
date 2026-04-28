@@ -1,4 +1,4 @@
-# StarOps
+# openKylin
 
 **AI-Powered Intelligent System Monitoring Assistant**
 **智能系统监控助手**
@@ -7,9 +7,9 @@
 
 ## Overview | 简介
 
-StarOps is an AI-driven infrastructure monitoring and operations assistant designed for Linux desktop environments. It leverages natural language processing to allow users to query system metrics, security vulnerabilities, database performance, and other infrastructure concerns through conversational AI. The system automatically selects and executes appropriate monitoring protocols based on user queries.
+openKylin is an AI-driven infrastructure monitoring and operations assistant designed for Linux desktop environments. It leverages natural language processing to allow users to query system metrics, security vulnerabilities, database performance, and other infrastructure concerns through conversational AI. The system automatically selects and executes appropriate monitoring protocols based on user queries.
 
-StarOps 是一款 AI 驱动的智能基础设施监控与运维助手，专为 Linux 桌面环境设计。它利用自然语言处理技术，让用户可以通过对话式 AI 查询系统指标、安全漏洞、数据库性能等基础设施问题。系统会根据用户查询自动选择并执行相应的监控协议。
+openKylin 是一款 AI 驱动的智能基础设施监控与运维助手，专为 Linux 桌面环境设计。它利用自然语言处理技术，让用户可以通过对话式 AI 查询系统指标、安全漏洞、数据库性能等基础设施问题。系统会根据用户查询自动选择并执行相应的监控协议。
 
 ---
 
@@ -62,12 +62,12 @@ src/
 ├── core/                    # Core backend modules / 核心后端模块
 │   ├── ai_model.py         # AI model interface (DeepSeek API)
 │   ├── smart_monitor.py    # Main monitoring orchestrator / 主监控编排器
-│   └── mcp_protocols.py   # 13 monitoring protocol implementations / 13 种监控协议实现
+│   └── mcp_protocols.py    # 13 monitoring protocol implementations / 13 种监控协议实现
 ├── frontend/               # Electron desktop app / Electron 桌面应用
 ├── apps/                   # Various app implementations (CLI, Qt, Flet) / 多种应用实现 (CLI, Qt, Flet)
-├── mysql_report/           # MySQL optimization analysis module / MySQL 优化分析模块
+├── mysql_report/            # MySQL optimization analysis module / MySQL 优化分析模块
 ├── utils/                  # Utility modules / 工具模块
-└── reports/               # Generated analysis reports / 生成的报告
+└── reports/                # Generated analysis reports / 生成的报告
 ```
 
 ---
